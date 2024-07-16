@@ -1,0 +1,97 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Runtime.InteropServices.WindowsRuntime;
+
+namespace beolvasx
+{
+    internal class Program
+    {
+        class Beolvas
+        {
+            public int nap;
+            public string honap;
+            public int ev;
+
+            public Beolvas(string sor)
+            {
+                string[] r = sor.Split(';');
+                this.nap = Int32.Parse(r[0]);
+                this.honap = r[1];
+                this.ev =Int32.Parse( r[2]);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            List<Beolvas>list = new List<Beolvas>();
+            StreamReader sr = new StreamReader("d:\\datum.txt");
+
+            while (!sr.EndOfStream)
+            {
+                string sor = sr.ReadLine();
+                Beolvas B = new Beolvas(sor);
+                list.Add(B);
+            }sr.Close();
+            Console.WriteLine($"A lista {list.Count()} elemet tartalmaz");
+         
+           double evekosszeg = 0;
+            for (int i = 0; i < list.Count(); i++)
+            {
+                evekosszeg += list[i].ev;
+            }
+            Console.WriteLine(evekosszeg);
+            Console.WriteLine($"A listában lévő dátumok átlaga: {evekosszeg / list.Count()}");
+           
+
+            int db = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+
+                if (list[i].honap == "szep")
+                {
+                    db += 1;
+                }
+            }
+
+            bool van = false;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+
+                if (list[i].honap == "december")
+                {
+                van = true;
+                }
+
+            }
+            StreamWriter sw = new StreamWriter("d:\\asd.txt");
+            for (int i = 0; i < list.Count; i++)
+            {
+                sw.WriteLine($"{list[i].ev},{list[i].honap},{list[i].nap}");
+           
+            }sw.Close();
+            Console.WriteLine(van);
+
+            Console.WriteLine($"a listában szeptemberi hónapból {db} darab van");
+
+
+            int keresett = 5;
+            for (int i = 0; i < list.Count(); i++)
+            {
+                if (list[i] == list[keresett])
+                {
+                    keresett = i;
+                }
+
+            }
+            Console.WriteLine($"a keresett érték adatai: {list[keresett].ev}, {list[keresett].honap}, {list[keresett].nap}");
+            Console.ReadKey();
+        }
+       
+
+    }
+}
