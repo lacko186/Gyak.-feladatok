@@ -1,0 +1,54 @@
+//Golf_1.9tdi_feladat
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using öröklödés;
+
+namespace öröklödés
+{
+    class Auto
+    {
+        public string márka;
+        public int teljesitmeny;
+
+        public Auto(string márka, int teljesitmeny)
+        {
+            this.márka = márka;
+            this.teljesitmeny = teljesitmeny;
+        }
+
+        public void Indul()
+        {
+            Console.WriteLine("A motor elindult..");
+        }
+    }
+
+
+    class Volkswagen : Auto
+    {
+        public string tipus;
+
+        public Volkswagen(string márka, int teljesitmeny, string tipus) : base(márka, teljesitmeny)
+        {
+
+            this.tipus = tipus;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            Volkswagen golf = new Volkswagen("Volkswagen", 90, "Golf 1.9 TDI");
+
+           golf.Indul();
+            Console.WriteLine($"márkája: {golf.márka} \nteljesítmenye: {golf.teljesitmeny} le \ntípusa: {golf.tipus}");
+        }
+    }
+}
+
+
+
+
