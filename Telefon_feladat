@@ -1,0 +1,41 @@
+A telefonOOP projektben:
+
+Hozz létre egy Telefon nevű osztályt az alábbi paraméterekkel:
+
+Mezők:
+ - szolgaltato: minden telefon a Telenor szolgáltatóhoz tartozik!!! ///AZAZ ez az érték minden telefon esetében UGYAN AZ!!!///
+ - telefonszám: a telefonhoz tartozó hívószámot tárolja (lehet szöveg)
+ - egyenleg: a rendelkezésre álló egyenleg Ft-ban értve (egész)
+ - típus: a telefon típusa (szöveg)
+ - percdíj: 1 percnyi hívás díja Ft-ban (egész)
+
+Konstruktorok:
+ - paraméteres: telefonszám - egyenleg - típus - percdíj beállítása 
+
+Metódusok:
+ - Feltolt(osszeg) néven egy TÖRZS NÉLKÜLI metódust
+  -> amely majd a megadott összeggel növeli az egyenleget
+ - Hivas(perc) - logikai visszatérési értékkel
+   - ha van a megadott percnyi beszélgetés lebonyolításához elegendő egyenleg, akkor vonja le és igaz értékkel térjen vissza 
+   - ha nem elegendő az egyenleg, akkor az egyenleget nullázza le és hamis értékkel térjen vissza
+
+Hozz létre egy VideoPhone nevű interface-t 
+ - abban egy egész típusú "perc" nevű paramétert átvevő VideoHivas visszatérési érték nélküli metódussal, amely majd 10 Ft-tal csökkenti az egyenleget percenként!
+
+A Telefon osztályból származtass egy SuperTelefon osztályt, amely implementálja a videoPhone interface-t is a következő paraméterekkel:
+
+Mezők:
+ - smsdíj, amelynek értéke 45 Ft legyen
+Metódusok:
+ - A szükséges metódusok implementálása
+ - SmsKuld(telszam, szöveg)
+   - ha van az sms elköldéséhez elegendő egyenleg, akkor vonja le az sms díját belőle és írja ki, hogy "Elküldve"
+   - ha nincs, akkor írja ki, hogy "Az sms küldés sikertelen... Nem áll rendelkezésre megfelelő egyenleg"
+ 
+
+A main() metódusban:
+
+ - hozz létre a SzuperTelefon osztályból egy példányt a paraméteres konstruktor segítségével tetszőleges adatokkal
+ - indíts egy 30 perces hívást és írasd ki, hogy sikeres volt-e
+ - tölts fel 1000 Ft-ot
+ - küldj egy sms-t valamilyen szöveggel egy kitalált telefonszámra
