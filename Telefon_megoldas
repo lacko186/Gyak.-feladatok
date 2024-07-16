@@ -1,0 +1,137 @@
+using System;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+
+namespace telefon
+{
+    class Telefon
+    {
+        //osztályszintú mező
+        // static egyszer lesz a romban
+        public static string szolgaltato = "Telenor ";
+        public static int db = 0;
+
+        //példányszintű mezők
+        public string telefonszam;
+        public int egyenleg;
+        public string tipus;
+        public int percdij;
+
+        public Telefon(string telefonszam, int egyenleg, string tipus, int percdij)
+        {
+            this.telefonszam = telefonszam;
+            this.egyenleg = egyenleg;
+            this.tipus = tipus;
+            this.percdij = percdij;
+            Telefon.db += 1;
+
+        }
+
+        public Telefon(string telefonszam, string tipus, int percdij)
+        {
+     
+            this.telefonszam = telefonszam;
+            this.tipus = tipus;
+            this.percdij = percdij;
+            this.egyenleg = 1000;
+            Telefon.db += 1;
+
+        }
+
+
+        public void Feltolt(int osszeg)
+        {
+            this.egyenleg += osszeg;
+        }
+
+        public bool Hivas(int perc)
+        {
+           
+            int koltseg = this.percdij * perc;
+
+            if (this.egyenleg-koltseg >= 0)
+            {
+                this.egyenleg -= koltseg;
+                return true;
+            }
+            else
+            {
+                this.egyenleg = 0;
+                return false;
+            }
+
+
+        }
+        public override string ToString()
+        {
+            return $"Telszam: {this.telefonszam}\nTípus{this.tipus}\nEgyenleg: {this.egyenleg}\n Percdíj: {this.percdij}";
+        }
+    }
+    class Supertelefon : Telefon
+    {
+        public int smsdij = 45;
+
+        public Supertelefon(string telefonszam, int egyenleg, string tipus, int percdij) : base(telefonszam, egyenleg, tipus, percdij)
+        {
+
+           
+        }
+
+        public void SmsKuld(string telszam, string szoveg)
+        {
+            if (this.egyenleg >= smsdij)
+            {
+                this.egyenleg = this.egyenleg-smsdij;
+                Console.WriteLine($"Elküdve az egyenleged: {this.egyenleg} ft");            }
+            else
+            {
+                egyenleg = 0;
+                Console.WriteLine("Nem áll rendelkezésre megfelelő egyenleg");
+            }
+        }
+        public override string ToString()
+        {
+            return $"Telszam: {this.telefonszam}\nTípus{this.tipus}\nEgyenleg: {this.egyenleg}\n Percdíj: {this.percdij}\n Smsdíj: {this.smsdij} Ft";
+        }
+    }
+    internal class Program
+    {
+       
+        static void Main(string[] args)
+        {
+           
+
+            //SZOLGÁLTATÓ KIIRATÁSA- OSZTÁLYSZINTŰ MEZŐ
+            Console.WriteLine($"A szolgáltató: {Supertelefon.szolgaltato}");
+
+            Console.WriteLine($"A telefonok száma: {Supertelefon.db}");
+            //példányosítás
+
+            Supertelefon tel1 = new Supertelefon("0634242342", 500, "Samsung A53", 25);
+
+            Telefon tel2 = new Telefon("0621738712", "Huawei P40 pro", 30);
+            Console.WriteLine($"\nA telefonok száma: {Supertelefon.db}");
+            //példányosítás
+
+            Console.WriteLine(tel1);
+
+            //- - indíts egy 30 perces hívást és írasd ki, hogy sikeres volt-e
+            Console.WriteLine(tel2);
+
+            if (tel2.Hivas(30) == true)
+            {
+                Console.WriteLine("A 30 perces hívás sikeres volt");
+            }
+            else
+            {
+                Console.WriteLine("A 30 perces hívás nem volt sikeres volt");
+            }
+            tel2.Feltolt(1000);
+
+            tel1.SmsKuld("0682378912","Sikerült a vizsga!");
+           
+
+            Console.ReadKey();
+        }
+    }
+}
