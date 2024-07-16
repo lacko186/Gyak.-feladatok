@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Abstract
+{
+     abstract class Allat
+    {
+        public string nev;
+        public int kor;
+
+        public Allat(string nev, int kor)
+        {
+            this.nev = nev;
+            this.kor = kor;
+        }
+        public void Mozog()
+        {
+            Console.WriteLine("Összevissza szaladgál...");
+        }
+
+        public virtual void HangotAd()
+        {
+            Console.WriteLine("VauVau");
+        }
+
+        class kutya : Allat
+        {
+            public kutya(string nev, int kor) : base(nev, kor)
+            {
+            }
+            public void harap()
+            {
+                Console.WriteLine("Jól megharap");
+            }
+        }
+        class Macska : Allat
+        {
+            public int doromboláshangereje;
+            public Macska(string nev, int kor, int hangero) : base(nev, kor)
+            {
+                this.doromboláshangereje = hangero;
+            }
+        public void Karmol()
+            {
+                Console.WriteLine("Jól megkarmolt...");
+            }
+
+            public override void HangotAd()
+            {
+                Console.WriteLine("MiauMiau");
+            }
+        }
+
+        class Program
+        {
+            static void Main(string[] args)
+            {
+                kutya buksi = new kutya("buksi", 5);
+                buksi.HangotAd();
+               
+                Macska cirmi = new Macska("cirmi", 2, 7);
+                cirmi.HangotAd();
+               
+
+
+                Allat valami = new Allat("x", 5);
+                valami.HangotAd();
+                Console.ReadKey();
+            }
+        }
+    }
+}
